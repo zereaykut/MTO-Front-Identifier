@@ -18,7 +18,7 @@ def preprocess_era5_variable(var_letter, output_name, lat_range, lon_range, inpu
     datasets = []
     for f in sorted(files):
         logger.debug(f"Reading {f}...")
-        ds = xr.open_dataset(f, engine='cfgrib')
+        ds = xr.open_dataset(f, engine="cfgrib")
         
         ds_subset = ds.sel(latitude=slice(max(lat_range), min(lat_range)), 
                            longitude=slice(min(lon_range), max(lon_range)))
