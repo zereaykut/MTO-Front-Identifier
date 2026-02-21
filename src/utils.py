@@ -25,7 +25,8 @@ def preprocess_era5_variable(var_letter, output_name, lat_range, lon_range, inpu
         datasets.append(ds_subset)
 
     logger.info(f"Merging {len(datasets)} datasets for {var_letter}...")
-    merged = xr.combine_by_coords(datasets)
+    
+    merged = xr.combine_by_coords(datasets, combine_attrs='drop_conflicts') # combine_attrs='drop_conflicts' to ignore the mismatched history metadata
     
     output_path = os.path.join(output_location, output_name)
     logger.info(f"Saving merged dataset to {output_path}...")
