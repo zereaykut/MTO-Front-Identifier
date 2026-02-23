@@ -50,25 +50,25 @@ def plot_front_samples(mask_path, t_path, output_dir="./outputs/plots", time_ran
         
         # Add map features
         ax.add_feature(cfeature.COASTLINE, linewidth=0.8)
-        ax.add_feature(cfeature.BORDERS, linestyle=':', linewidth=0.8)
+        ax.add_feature(cfeature.BORDERS, linestyle=":", linewidth=0.8)
         
         # 1. Plot background temperature (converted to Celsius)
         temp_data = t_850.sel(time=t_step) - 273.15 
         c = ax.contourf(temp_data.longitude, temp_data.latitude, temp_data, 
-                        levels=20, cmap='coolwarm', transform=ccrs.PlateCarree())
-        plt.colorbar(c, ax=ax, orientation='horizontal', pad=0.05, label='Temperature (°C) at 850 hPa')
+                        levels=20, cmap="coolwarm", transform=ccrs.PlateCarree())
+        plt.colorbar(c, ax=ax, orientation="horizontal", pad=0.05, label="Temperature (°C) at 850 hPa")
         
         # 2. Overlay Front Mask
         mask_data = front_mask.sel(time=t_step)
-        # We draw a contour exactly at the threshold of our binary mask
+        # Draw a contour exactly at the threshold of binary mask
         ax.contour(mask_data.longitude, mask_data.latitude, mask_data, 
-                   levels=[0.5], colors='black', linewidths=2.5, transform=ccrs.PlateCarree())
+                   levels=[0.5], colors="black", linewidths=2.5, transform=ccrs.PlateCarree())
         
         plt.title(f"Frontal Zones and 850 hPa Temperature\n{time_str}")
         
         # Save figure
         out_file = os.path.join(output_dir, f"front_map_{time_str}.png")
-        plt.savefig(out_file, dpi=150, bbox_inches='tight')
+        plt.savefig(out_file, dpi=150, bbox_inches="tight")
         plt.close(fig)
         
-    logger.info(f"Plotting complete. Check the '{output_dir}' directory.")
+    logger.info(f"""Plotting complete. Check the "{output_dir}" directory.""")
