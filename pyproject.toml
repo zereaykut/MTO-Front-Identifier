@@ -1,7 +1,7 @@
 [project]
 name = "mto-front-identifier"
-version = "0.1.0"
-description = "Add your description here"
+version = "0.2.0"
+description = "Objective meteorological front identification, classification, and visualization on ERA5 pressure-level data."
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
@@ -16,3 +16,12 @@ dependencies = [
     "numpy>=2.4.2",
     "xarray>=2026.2.0",
 ]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.0.0",
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
